@@ -1,0 +1,35 @@
+VECK.version           "3.0.0"
+VECK.boot              array of boot-stage strings with timestamps
+VECK.state             the live state object (mutate freely)
+VECK.hooks             extension points
+                       .onPacket(msg, dir)
+                       .filterArc(x, y, r)
+                       .healAction()
+                       .fireAction(target)
+VECK.scanner           .scan(type, value, maxHits)
+                       .refine(type, value)
+                       .write(type, addr, value)
+                       .read(type, addr)
+VECK.wasm              .memory / .buffer / .u8 / .i32 / .u32 / .f32 / .f64
+VECK.ui                .host / .shadow / .root / .open / .mounted
+                       .stats (live DOM nodes for the counters)
+
+VECK.netEntities       Map<id, {id, x, y, hp, maxHp, name, lastSeen, raw}>
+VECK.screenArcs        raw {x, y, r, t} entries harvested this frame
+VECK.screenBoxes       raw {x, y, w, h, t} entries from fillRect/strokeRect
+VECK.playerCandidates  Set of objects the defineProperty trap caught
+VECK.gameGlobals       objects on window matching common game names
+
+VECK.scanGlobals()     rescan window for game objects
+VECK.aimTarget()       current best aim target or null
+VECK.inferLocalPlayer() best guess at your own entity
+VECK.findGameCanvas()  the game's canvas element
+
+VECK.toggleUI()        programmatic INSERT
+VECK.remountUI()       force-remount the Shadow-DOM host
+VECK.sendRaw(payload)  raw WS send on the captured socket
+VECK.getWsLog()        snapshot of packet ring buffer (last 800)
+VECK.dumpWsLog()       console.table of last 40 packets
+VECK.snapshot()        {uiMounted, uiOpen, canvasEntities, netEntities,
+                        playerCandidates, gameGlobals, wasmBytes,
+                        packetsLogged, bootStages}
